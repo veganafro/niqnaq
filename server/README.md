@@ -30,13 +30,15 @@ server
 
 ## Getting started
 
-It's assumed that the Go environment (`$GOPATH` and `$GOBIN`) have been correctly setup. In order to get started, clone this repo, install the following tools:
+It's assumed that the Go environment (`$GOPATH` and `$GOBIN`) have been correctly setup. In order to get started, clone this repo and install the following tools:
 * [`protoc`](https://grpc.io/docs/protoc-installation/) - This is the protocol buffer compiler
 * [`protoc-gen-go`](https://grpc.io/docs/languages/go/quickstart/) - This is a compiler plugin to `protoc` that enables the compiler to generate Go code
+* [`grpc-gateway`](https://github.com/grpc-ecosystem/grpc-gateway/) - This compiler plugin to `protoc` generates a reverse-proxy server which translates a RESTful HTTP API into gRPC
 
 ```
 $ brew install protobuf
 $ GO111MODULE=on go get github.com/golang/protobuf/protoc-gen-go
+$ GO111MODULE=on go get github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
 ```
 
 * [`docker`](https://docs.docker.com/docker-for-mac/install/) - This is a containerization tool that services will run in
