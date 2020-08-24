@@ -38,7 +38,7 @@ It's assumed that the Go environment (`$GOPATH` and `$GOBIN`) have been correctl
 ```
 $ brew install protobuf
 $ GO111MODULE=on go get github.com/golang/protobuf/protoc-gen-go
-$ GO111MODULE=on go get github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
+$ GO111MODULE=on go get github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway@v1.14.7
 ```
 
 * [`docker`](https://docs.docker.com/docker-for-mac/install/) - This is a containerization tool that services will run in
