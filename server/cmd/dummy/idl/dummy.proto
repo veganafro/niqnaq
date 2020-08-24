@@ -8,7 +8,7 @@ import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 
 service DummyService {
-    rpc GetEmpty(google.protobuf.Empty) returns (DummyResponse) {
+    rpc GetHello(google.protobuf.Empty) returns (DummyResponse) {
         option(google.api.http) = { get: "/hello" };
     }
     rpc GetDummy(DummyRequest) returns (DummyResponse) {}

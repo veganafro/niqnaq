@@ -139,7 +139,7 @@ var file_dummy_proto_rawDesc = []byte{
 	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x72, 0x73, 0x70, 0x18, 0x01, 0x20,
 	0x01, 0x28, 0x09, 0x52, 0x03, 0x72, 0x73, 0x70, 0x32, 0x9d, 0x01, 0x0a, 0x0c, 0x44, 0x75, 0x6d,
 	0x6d, 0x79, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x4c, 0x0a, 0x08, 0x47, 0x65, 0x74,
-	0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x16, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70,
+	0x48, 0x65, 0x6c, 0x6c, 0x6f, 0x12, 0x16, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70,
 	0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x1a, 0x18, 0x2e,
 	0x64, 0x75, 0x6d, 0x6d, 0x79, 0x5f, 0x67, 0x65, 0x6e, 0x2e, 0x44, 0x75, 0x6d, 0x6d, 0x79, 0x52,
 	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x0e, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x08, 0x12,
@@ -172,9 +172,9 @@ var file_dummy_proto_goTypes = []interface{}{
 	(*empty.Empty)(nil),   // 2: google.protobuf.Empty
 }
 var file_dummy_proto_depIdxs = []int32{
-	2, // 0: dummy_gen.DummyService.GetEmpty:input_type -> google.protobuf.Empty
+	2, // 0: dummy_gen.DummyService.GetHello:input_type -> google.protobuf.Empty
 	0, // 1: dummy_gen.DummyService.GetDummy:input_type -> dummy_gen.DummyRequest
-	1, // 2: dummy_gen.DummyService.GetEmpty:output_type -> dummy_gen.DummyResponse
+	1, // 2: dummy_gen.DummyService.GetHello:output_type -> dummy_gen.DummyResponse
 	1, // 3: dummy_gen.DummyService.GetDummy:output_type -> dummy_gen.DummyResponse
 	2, // [2:4] is the sub-list for method output_type
 	0, // [0:2] is the sub-list for method input_type
@@ -246,7 +246,7 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type DummyServiceClient interface {
-	GetEmpty(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*DummyResponse, error)
+	GetHello(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*DummyResponse, error)
 	GetDummy(ctx context.Context, in *DummyRequest, opts ...grpc.CallOption) (*DummyResponse, error)
 }
 
@@ -258,9 +258,9 @@ func NewDummyServiceClient(cc grpc.ClientConnInterface) DummyServiceClient {
 	return &dummyServiceClient{cc}
 }
 
-func (c *dummyServiceClient) GetEmpty(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*DummyResponse, error) {
+func (c *dummyServiceClient) GetHello(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*DummyResponse, error) {
 	out := new(DummyResponse)
-	err := c.cc.Invoke(ctx, "/dummy_gen.DummyService/GetEmpty", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/dummy_gen.DummyService/GetHello", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -278,7 +278,7 @@ func (c *dummyServiceClient) GetDummy(ctx context.Context, in *DummyRequest, opt
 
 // DummyServiceServer is the server API for DummyService service.
 type DummyServiceServer interface {
-	GetEmpty(context.Context, *empty.Empty) (*DummyResponse, error)
+	GetHello(context.Context, *empty.Empty) (*DummyResponse, error)
 	GetDummy(context.Context, *DummyRequest) (*DummyResponse, error)
 }
 
@@ -286,8 +286,8 @@ type DummyServiceServer interface {
 type UnimplementedDummyServiceServer struct {
 }
 
-func (*UnimplementedDummyServiceServer) GetEmpty(context.Context, *empty.Empty) (*DummyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetEmpty not implemented")
+func (*UnimplementedDummyServiceServer) GetHello(context.Context, *empty.Empty) (*DummyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetHello not implemented")
 }
 func (*UnimplementedDummyServiceServer) GetDummy(context.Context, *DummyRequest) (*DummyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDummy not implemented")
@@ -297,20 +297,20 @@ func RegisterDummyServiceServer(s *grpc.Server, srv DummyServiceServer) {
 	s.RegisterService(&_DummyService_serviceDesc, srv)
 }
 
-func _DummyService_GetEmpty_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DummyService_GetHello_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(empty.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DummyServiceServer).GetEmpty(ctx, in)
+		return srv.(DummyServiceServer).GetHello(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/dummy_gen.DummyService/GetEmpty",
+		FullMethod: "/dummy_gen.DummyService/GetHello",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DummyServiceServer).GetEmpty(ctx, req.(*empty.Empty))
+		return srv.(DummyServiceServer).GetHello(ctx, req.(*empty.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -338,8 +338,8 @@ var _DummyService_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*DummyServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetEmpty",
-			Handler:    _DummyService_GetEmpty_Handler,
+			MethodName: "GetHello",
+			Handler:    _DummyService_GetHello_Handler,
 		},
 		{
 			MethodName: "GetDummy",

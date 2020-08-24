@@ -17,34 +17,34 @@ import (
 	"google.golang.org/grpc"
 )
 
+const (
+	host = "0.0.0.0:3001"
+)
+
 type dummyServer struct {
 	pb.UnimplementedDummyServiceServer
 }
 
-func (server *dummyServer) GetEmpty(ctx context.Context, request *empty.Empty) (*pb.DummyResponse, error) {
+func (server *dummyServer) GetHello(ctx context.Context, request *empty.Empty) (*pb.DummyResponse, error) {
 	return &pb.DummyResponse{ Rsp: "Hello world" }, nil
-}
-
-func getHost() (string) {
-	return "0.0.0.0:3001"
 }
 
 func main() {
 	serverOpts := []grpc.ServerOption{
-		grpc.Creds(credentials.NewClientTLSFromCert(insecure.GetCertPool(), getHost())),
+		grpc.Creds(credentials.NewClientTLSFromCert(insecure.GetCertPool(), host)),
 	}
 	grpcServer := grpc.NewServer(serverOpts...)
 	pb.RegisterDummyServiceServer(grpcServer, &dummyServer{})
 
 	dialCreds := credentials.NewTLS(&tls.Config{
-		ServerName: getHost(),
+		ServerName: host,
 		RootCAs: insecure.GetCertPool(),
 	})
-	dialOpts := []grpc.DialOption{grpc.WithTransportCredentials(dialCreds)}
+	dialOpts := []grpc.DialOption{ grpc.WithTransportCredentials(dialCreds) }
 
 	ctx := context.Background()
 	gatewayMux := runtime.NewServeMux()
-	error := pb.RegisterDummyServiceHandlerFromEndpoint(ctx, gatewayMux, getHost(), dialOpts)
+	error := pb.RegisterDummyServiceHandlerFromEndpoint(ctx, gatewayMux, host, dialOpts)
 	if error != nil {
 		log.Fatal("Failed to register service handler from endpoint | ", error)
 	}
@@ -61,7 +61,7 @@ func main() {
 	})
 
 	httpServer := &http.Server{
-		Addr: getHost(),
+		Addr: host,
 		Handler: httpHandler,
 		TLSConfig: &tls.Config{
 			Certificates: []tls.Certificate{*insecure.GetKeyPair()},
@@ -69,7 +69,7 @@ func main() {
 		},
 	}
 
-	conn, error := net.Listen("tcp", getHost())
+	conn, error := net.Listen("tcp", host)
 	if error != nil {
 		log.Fatal("Failed to start tcp connection | ", error)
 	}
