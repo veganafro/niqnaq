@@ -16,8 +16,8 @@ logs: # Get logs of containers
 
 proto: # Generate proto files
 	protoc --proto_path=$(GOPATH)/pkg/mod/github.com/googleapis/googleapis@v0.0.0-20200814034631-3a54e988edcb \
-		--proto_path=server/cmd/$(SERVICE)/idl \
-		server/cmd/$(SERVICE)/idl/$(PROTO) \
+		--proto_path=server/idl \
+		server/idl/$(SERVICE).proto \
 		--go_out=plugins=grpc:server/pkg \
 		--grpc-gateway_out=logtostderr=true,paths=source_relative:server/pkg/$(SERVICE)_gen \
 		--go_opt=module=github.com/veganafro/mono

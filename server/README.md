@@ -8,12 +8,13 @@ Resources related to backend services that support the Mono iOS and Android clie
 server
 ├── cmd
 │   └── dummy
-│       ├── idl
-│       │   └── dummy.proto
 │       └── main.go
+├── idl
+│   └── dummy.proto
 ├── pkg
 │   └── dummy_gen
-│       └── dummy_gen.pb.go
+│       ├── dummy.pb.go
+│       └── dummy.pb.gw.go
 ├── Dockerfile
 ├── Dockerfile.test
 ├── go.mod
@@ -22,7 +23,11 @@ server
 
 * cmd
 
-   `cmd` contains service entry points in the `main.go` file and service definitions as represented by `.proto` files. Each directory in `cmd` maps to a similarly named service.
+   `cmd` contains service entry points in the `main.go`. Each directory in `cmd` maps to a similarly named service.
+
+* idl
+
+   `idl` contains service and message definitions in `.proto` files.
 
 * pkg
 
@@ -51,7 +56,9 @@ $ GO111MODULE=on go get github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-g
 $ go get github.com/googleapis/googleapis@v0.0.0-20200814034631-3a54e988edcb
 ```
 
-After these steps, you should be able to bring up existing services using `make start` and `make stop`, as well as define and generate code
-for new services using `make proto SERVICE="..." PROTO="..."` where `SERVICE` and `PROTO` are the name of the service's directory i.e. `dummy` and
-the name of the service definition file i.e. `dummy.proto`.
+After these steps, you should be able to bring up existing services using `make start` and `make stop`.
+
+To define a new service, write a definition for that service i.e. `[NAME].proto` in `idl` and create an entry point i.e. `main.go` in a new directory
+under `cmd/[NAME]`. Then, using `make proto SERVICE="[NAME]"` where `SERVICE` is the name of the service's definition and entry point i.e. `dummy`, generate
+the service stubs. These can be found in `pkg/[NAME]_gen`. The final step is to implement the business logic in the entry point that was created earlier.
 
