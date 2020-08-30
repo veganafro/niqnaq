@@ -27,7 +27,7 @@ type dummerServer struct {
 }
 
 func (server *dummerServer) GetWorld(ctx context.Context, request *dummy.DummyRequest) (*dummy.DummyResponse, error) {
-	conn, error := grpc.Dial("0.0.0.0:3001", grpc.WithInsecure())
+	conn, error := grpc.Dial("dummy:3001", grpc.WithInsecure())
 	if error != nil {
 		log.Println("Failed to dial dummy service | ", error)
 		return nil, error

@@ -15,9 +15,25 @@ services:
             - dummy_vol:/go/src/mono/server
         networks:
             - mono_net
+    dummer:
+        build:
+            context: ./server
+            dockerfile: ./Dockerfile
+            args:
+                project: ./cmd/dummer
+        environment:
+            - PORT=3002
+        ports:
+            - 8002:3002
+        restart: on-failure
+        volumes:
+            - dummer_vol:/go/src/mono/server
+        networks:
+            - mono_net
 
 volumes:
     dummy_vol:
+    dummer_vol:
 
 networks:
     mono_net:
