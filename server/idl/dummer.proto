@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package dummer_gen;
 
-option go_package = "github.com/veganafro/mono/dummer_gen";
+option go_package = "github.com/veganafro/mono/pkg/dummer_gen";
 
 import "google/api/annotations.proto";
 import "dummy.proto";

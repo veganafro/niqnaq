@@ -7,8 +7,9 @@ import (
 	"net"
 	"strings"
 
+	dummy "github.com/veganafro/mono/pkg/dummy_gen"
 	"github.com/golang/protobuf/ptypes/empty"
-	pb "github.com/veganafro/mono/pkg/dummy_gen"
+	pb "github.com/veganafro/mono/pkg/dummer_gen"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 
 	"google.golang.org/grpc"
@@ -18,32 +19,46 @@ import (
 )
 
 const (
-	host = "0.0.0.0:3001"
+	host = "0.0.0.0:3002"
 )
 
-type dummyServer struct {
-	pb.UnimplementedDummyServiceServer
+type dummerServer struct {
+	pb.UnimplementedDummerServiceServer
 }
 
-func (server *dummyServer) GetHello(ctx context.Context, request *empty.Empty) (*pb.DummyResponse, error) {
-	return &pb.DummyResponse{ Rsp: "Hello world" }, nil
+func (server *dummerServer) GetWorld(ctx context.Context, request *dummy.DummyRequest) (*dummy.DummyResponse, error) {
+	conn, error := grpc.Dial("0.0.0.0:3001", grpc.WithInsecure())
+	if error != nil {
+		log.Println("Failed to dial dummy service | ", error)
+		return nil, error
+	}
+	defer conn.Close()
+
+	client := dummy.NewDummyServiceClient(conn)
+	response, error := client.GetHello(context.Background(), &empty.Empty{})
+	if error != nil {
+		log.Println("Failed to request dummy.GetHello | ", error)
+		return nil, error
+	}
+	
+	return response, nil
 }
 
 func main() {
 	grpcServer := grpc.NewServer()
-	pb.RegisterDummyServiceServer(grpcServer, &dummyServer{})
+	pb.RegisterDummerServiceServer(grpcServer, &dummerServer{})
 
 	dialOpts := []grpc.DialOption{ grpc.WithInsecure() }
 
 	ctx := context.Background()
 	gatewayMux := runtime.NewServeMux()
-	error := pb.RegisterDummyServiceHandlerFromEndpoint(ctx, gatewayMux, host, dialOpts)
+	error := pb.RegisterDummerServiceHandlerFromEndpoint(ctx, gatewayMux, host, dialOpts)
 	if error != nil {
 		log.Fatal("Failed to register service handler from endpoint | ", error)
 	}
 
 	httpMux := http.NewServeMux()
-	httpMux.Handle("/hello", gatewayMux)
+	httpMux.Handle("/world", gatewayMux)
 
 	httpHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.ProtoMajor == 2 && strings.Contains(r.Header.Get("Content-Type"), "application/grpc") {
@@ -66,7 +81,7 @@ func main() {
 
 	error = http1Server.Serve(conn)
 	if error != nil {
-		log.Fatal("Failed to start http server | ", error)
+		log.Fatal("Failed to start http1 server | ", error)
 	}
 }
 
