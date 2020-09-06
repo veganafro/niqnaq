@@ -47,3 +47,4 @@ Each module should be well tested, and tests can be executed with this `bazel` c
 $ bazel test //some/target:name
 ```
 
+Each class that's tested corresponds to a `kt_jvm_test` (for unit tests) or an `android_local_test` (for integration tests).
