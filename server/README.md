@@ -40,7 +40,7 @@ With the introduction of the [Bazel](https://bazel.build/) system, getting up an
 ```
 $ brew install bazel
 ```
-Next, install [`docker]`(https://docs.docker.com/docker-for-mac/install/) manually by following the linked steps.
+Next, install [`docker`](https://docs.docker.com/docker-for-mac/install/) manually by following the linked steps.
 
 ### Existing services
 
