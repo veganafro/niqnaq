@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"log"
 	"net"
+	"os"
 	"strings"
 
 	dummy "github.com/veganafro/mono/pkg/dummy/v1"
@@ -19,7 +20,7 @@ import (
 )
 
 const (
-	host = "0.0.0.0:3002"
+	host = "0.0.0.0"
 )
 
 type dummerServer struct {
@@ -27,7 +28,12 @@ type dummerServer struct {
 }
 
 func (server *dummerServer) GetWorld(ctx context.Context, request *dummy.GetHelloRequest) (*dummy.GetHelloResponse, error) {
-	conn, error := grpc.Dial("dummy:3001", grpc.WithInsecure())
+	var DummyHost string
+	if DummyHost = os.Getenv("DUMMY_HOST"); DummyHost == "" {
+		DummyHost = "0.0.0.0:3001"
+	}
+
+	conn, error := grpc.Dial(DummyHost, grpc.WithInsecure())
 	if error != nil {
 		log.Println("Failed to dial dummy service | ", error)
 		return nil, error
@@ -45,6 +51,11 @@ func (server *dummerServer) GetWorld(ctx context.Context, request *dummy.GetHell
 }
 
 func main() {
+	var PORT string
+	if PORT = os.Getenv("PORT"); PORT == "" {
+		log.Fatal("Failed to get port from environment")
+	}
+
 	grpcServer := grpc.NewServer()
 	pb.RegisterDummerServiceServer(grpcServer, &dummerServer{})
 
@@ -52,7 +63,7 @@ func main() {
 
 	ctx := context.Background()
 	gatewayMux := runtime.NewServeMux()
-	error := pb.RegisterDummerServiceHandlerFromEndpoint(ctx, gatewayMux, host, dialOpts)
+	error := pb.RegisterDummerServiceHandlerFromEndpoint(ctx, gatewayMux, host + ":" + PORT, dialOpts)
 	if error != nil {
 		log.Fatal("Failed to register service handler from endpoint | ", error)
 	}
@@ -70,11 +81,11 @@ func main() {
 
 	http2Server := &http2.Server{}
 	http1Server := &http.Server{
-		Addr: host,
+		Addr: host + ":" + PORT,
 		Handler: h2c.NewHandler(httpHandler, http2Server),
 	}
 
-	conn, error := net.Listen("tcp", host)
+	conn, error := net.Listen("tcp", host + ":" + PORT)
 	if error != nil {
 		log.Fatal("Failed to start tcp connection | ", error)
 	}

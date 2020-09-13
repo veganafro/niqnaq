@@ -5,9 +5,8 @@ services:
             context: ./server
             dockerfile: ./Dockerfile
             args:
-                project: ./cmd/dummy
-        environment:
-            - PORT=3001
+                port: 3001
+                project: //cmd/dummy:dummy
         ports:
             - 8001:3001
         restart: on-failure
@@ -20,9 +19,9 @@ services:
             context: ./server
             dockerfile: ./Dockerfile
             args:
-                project: ./cmd/dummer
-        environment:
-            - PORT=3002
+                dummy_host: 'dummy:3001'
+                port: 3002
+                project: //cmd/dummer:dummer
         ports:
             - 8002:3002
         restart: on-failure

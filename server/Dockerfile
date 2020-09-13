@@ -1,5 +1,5 @@
-# Start from the latest golang image
-FROM golang:latest
+# Start from the latest bazel image
+FROM l.gcr.io/google/bazel:latest
 
 LABEL maintainer="Jeremy Muhia <jmuhia80@gmail.com>"
 
@@ -9,11 +9,19 @@ WORKDIR /go/src/github.com/veganafro/mono/
 # Copy local files into the container's working directory
 COPY . .
 
-# Read the project argument from the yml file
+# Read the build arguments from the yml file
+ARG dummy_host
+ARG port
 ARG project
 
-# Build the go module
-RUN go build -o main $project
+# Set the environment variables from the build arguments
+ENV DUMMY_HOST $dummy_host
+ENV PORT $port
+ENV PROJECT $project
 
-CMD ["./main"]
+## Build the binary with bazel
+RUN bazel build $project
+
+# Run the service using bazel
+ENTRYPOINT ["/bin/bash", "-c", "bazel run ${PROJECT}"]
 

@@ -3,6 +3,9 @@
 build: # Build docker image
 	docker-compose build
 
+coldstart: # Build and start docker images
+	docker-compose up --detach --build
+
 clean:stop # Stop docker containers, clean data and workspace
 	docker-compose down -v --remove-orphans
 
@@ -13,14 +16,6 @@ deepclean: # Deep clean local docker
 
 logs: # Get logs of containers
 	docker-compose logs -f
-
-proto: # Generate proto files
-	protoc --proto_path=$(GOPATH)/pkg/mod/github.com/googleapis/googleapis@v0.0.0-20200814034631-3a54e988edcb \
-		--proto_path=server/idl \
-		server/idl/$(SERVICE).proto \
-		--go_out=plugins=grpc:server \
-		--grpc-gateway_out=logtostderr=true,paths=source_relative:server/pkg/$(SERVICE)_gen \
-		--go_opt=module=github.com/veganafro/mono
 
 start: # Start docker containers
 	docker-compose up -d

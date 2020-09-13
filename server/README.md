@@ -35,11 +35,12 @@ server
 
 ## Getting started
 
-With the introduction of the [Bazel](https://bazel.build/) system, getting up and running is fairly simple. The single requirement is that `bazel` be installed like so:
+With the introduction of the [Bazel](https://bazel.build/) system, getting up and running is fairly simple. The first of two requirements is that `bazel` be installed like so:
 
 ```
 $ brew install bazel
 ```
+Next, install [`docker]`(https://docs.docker.com/docker-for-mac/install/) manually by following the linked steps.
 
 ### Existing services
 
@@ -49,7 +50,7 @@ $ bazel run //cmd/[SERVICE]:[SERVICE]
 ```
 command. To bring up all existing services in containers, just run
 ```
-$ make start
+$ make coldstart
 ```
 
 ### New services
@@ -98,10 +99,10 @@ the service stubs. These can be found in `pkg/[NAME]_gen`. The final step is to 
 
 ## Helpful notes
 
-* [Bazel protobuf docs](https://github.com/bazelbuild/rules_proto)
-* [Bazel gazelle docs](https://github.com/bazelbuild/bazel-gazelle/blob/master/repository.rst)
-* [Bazel go docs](https://github.com/bazelbuild/rules_go)
-* [Bazel go + protobuf docs](https://github.com/bazelbuild/rules_go/blob/master/proto/core.rst)
-* [gRPC gateway docs](https://github.com/grpc-ecosystem/grpc-gateway)
-* [Buf docs](https://buf.build/docs/introduction)
+[Bazel protobuf docs](https://github.com/bazelbuild/rules_proto)
+[Bazel gazelle docs](https://github.com/bazelbuild/bazel-gazelle/blob/master/repository.rst)
+[Bazel go docs](https://github.com/bazelbuild/rules_go)
+[Bazel go + protobuf docs](https://github.com/bazelbuild/rules_go/blob/master/proto/core.rst)
+[gRPC gateway docs](https://github.com/grpc-ecosystem/grpc-gateway)
+[Buf docs](https://buf.build/docs/introduction)
 
