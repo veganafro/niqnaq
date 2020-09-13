@@ -7,9 +7,9 @@ import (
 	"net"
 	"strings"
 
-	dummy "github.com/veganafro/mono/pkg/dummy_gen"
+	dummy "github.com/veganafro/mono/pkg/dummy/v1"
 	"github.com/golang/protobuf/ptypes/empty"
-	pb "github.com/veganafro/mono/pkg/dummer_gen"
+	pb "github.com/veganafro/mono/pkg/dummer/v1"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 
 	"google.golang.org/grpc"
@@ -26,7 +26,7 @@ type dummerServer struct {
 	pb.UnimplementedDummerServiceServer
 }
 
-func (server *dummerServer) GetWorld(ctx context.Context, request *dummy.DummyRequest) (*dummy.DummyResponse, error) {
+func (server *dummerServer) GetWorld(ctx context.Context, request *dummy.GetHelloRequest) (*dummy.GetHelloResponse, error) {
 	conn, error := grpc.Dial("dummy:3001", grpc.WithInsecure())
 	if error != nil {
 		log.Println("Failed to dial dummy service | ", error)

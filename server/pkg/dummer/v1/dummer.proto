@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package dummer.v1;
+
+option go_package = "github.com/veganafro/mono/pkg/dummer/v1";
+
+import "google/api/annotations.proto";
+import "pkg/dummy/v1/dummy.proto";
+
+service DummerService {
+    rpc GetWorld(dummy.v1.GetHelloRequest) returns (dummy.v1.GetHelloResponse) {
+        option(google.api.http) = {
+            post: "/world"
+            body: "*"
+        };
+    }
+}
+

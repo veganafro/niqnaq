@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/golang/protobuf/ptypes/empty"
-	pb "github.com/veganafro/mono/pkg/dummy_gen"
+	pb "github.com/veganafro/mono/pkg/dummy/v1"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 
 	"google.golang.org/grpc"
@@ -25,8 +25,8 @@ type dummyServer struct {
 	pb.UnimplementedDummyServiceServer
 }
 
-func (server *dummyServer) GetHello(ctx context.Context, request *empty.Empty) (*pb.DummyResponse, error) {
-	return &pb.DummyResponse{ Rsp: "Hello world" }, nil
+func (server *dummyServer) GetHello(ctx context.Context, request *empty.Empty) (*pb.GetHelloResponse, error) {
+	return &pb.GetHelloResponse{ Rsp: "Hello world" }, nil
 }
 
 func main() {
