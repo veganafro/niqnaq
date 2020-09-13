@@ -100,9 +100,14 @@ the service stubs. These can be found in `pkg/[NAME]_gen`. The final step is to 
 ## Helpful notes
 
 [Bazel protobuf docs](https://github.com/bazelbuild/rules_proto)
+
 [Bazel gazelle docs](https://github.com/bazelbuild/bazel-gazelle/blob/master/repository.rst)
+
 [Bazel go docs](https://github.com/bazelbuild/rules_go)
+
 [Bazel go + protobuf docs](https://github.com/bazelbuild/rules_go/blob/master/proto/core.rst)
+
 [gRPC gateway docs](https://github.com/grpc-ecosystem/grpc-gateway)
+
 [Buf docs](https://buf.build/docs/introduction)
 

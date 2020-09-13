@@ -1,13 +1,13 @@
-.PHONY: build clean deepclean logs proto start status stop
+.PHONY: build clean coldstart deepclean logs proto start status stop
 
 build: # Build docker image
 	docker-compose build
 
-coldstart: # Build and start docker images
-	docker-compose up --detach --build
-
 clean:stop # Stop docker containers, clean data and workspace
 	docker-compose down -v --remove-orphans
+
+coldstart: # Build and start docker images
+	docker-compose up --detach --build
 
 deepclean: # Deep clean local docker
 	docker container prune -f
