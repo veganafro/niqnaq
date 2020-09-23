@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">mono</string>
+    <string name="welcome_message">Hello world! It\'s Jeremy.</string>
 </resources>

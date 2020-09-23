@@ -40,7 +40,7 @@ http_archive(
     name = "robolectric",
     urls = ["https://github.com/robolectric/robolectric-bazel/archive/%s.zip" % ROBOLECTRIC_VERSION],
     type = "zip",
-    strip_prefix = "robolectric-bazel-4.4",
+    strip_prefix = "robolectric-bazel-%s" % ROBOLECTRIC_VERSION,
     sha256 = ROBOLECTRIC_SHA
 )
 
