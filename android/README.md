@@ -33,11 +33,12 @@ Now, follow these steps to correctly configure IntelliJ:
 Once that step is complete, it should be easy enough to build and install the app to a connected device or emulator in two steps:
 
 ```
-$ bazel build //:mono
-$ bazel mobile-install //:mono --start_app
+$ bazel build //app/src:app_binary
+$ bazel mobile-install //app/src:app_binary --start_app
 ```
 
-Incremental builds can be sped up by executing the second command with a replaced target (the target that has been modified) and an additional `--icremental` flag.
+Incremental builds can be sped up by executing the second command with a replaced target (the target that has been modified)
+and an additional `--icremental` flag.
 
 ## Testing
 
@@ -47,4 +48,4 @@ Each module should be well tested, and tests can be executed with this `bazel` c
 $ bazel test //some/target:name
 ```
 
-Each class that's tested corresponds to a `kt_jvm_test` (for unit tests) or an `android_local_test` (for integration tests).
+Each tested class corresponds to a `kt_jvm_test` (for unit tests) or an `android_local_test` (for integration tests).

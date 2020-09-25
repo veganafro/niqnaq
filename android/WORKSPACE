@@ -18,10 +18,10 @@ RULES_KOTLIN_SHA = "4fd769fb0db5d3c6240df8a9500515775101964eebdf85a3f9f051113088
 
 http_archive(
     name = "io_bazel_rules_kotlin",
-    urls = ["https://github.com/bazelbuild/rules_kotlin/archive/%s.zip" % RULES_KOTLIN_VERSION],
-    type = "zip",
-    strip_prefix = "rules_kotlin-%s" % RULES_KOTLIN_VERSION,
     sha256 = RULES_KOTLIN_SHA,
+    strip_prefix = "rules_kotlin-%s" % RULES_KOTLIN_VERSION,
+    type = "zip",
+    urls = ["https://github.com/bazelbuild/rules_kotlin/archive/%s.zip" % RULES_KOTLIN_VERSION],
 )
 
 load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kotlin_repositories", "kt_register_toolchains")
@@ -38,10 +38,10 @@ ROBOLECTRIC_SHA = "f217e945d531828abced835ca467481827549250d57ae1b511899901cc4ae
 
 http_archive(
     name = "robolectric",
-    urls = ["https://github.com/robolectric/robolectric-bazel/archive/%s.zip" % ROBOLECTRIC_VERSION],
-    type = "zip",
+    sha256 = ROBOLECTRIC_SHA,
     strip_prefix = "robolectric-bazel-%s" % ROBOLECTRIC_VERSION,
-    sha256 = ROBOLECTRIC_SHA
+    type = "zip",
+    urls = ["https://github.com/robolectric/robolectric-bazel/archive/%s.zip" % ROBOLECTRIC_VERSION],
 )
 
 load("@robolectric//bazel:robolectric.bzl", "robolectric_repositories")
@@ -57,10 +57,10 @@ RULES_JVM_EXTERNAL_SHA = "d85951a92c0908c80bd8551002d66cb23c3434409c814179c0ff02
 
 http_archive(
     name = "rules_jvm_external",
-    urls = ["https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_VERSION],
-    type = "zip",
-    strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_VERSION,
     sha256 = RULES_JVM_EXTERNAL_SHA,
+    strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_VERSION,
+    type = "zip",
+    urls = ["https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_VERSION],
 )
 
 load("@rules_jvm_external//:defs.bzl", "maven_install")
