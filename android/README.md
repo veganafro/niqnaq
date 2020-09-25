@@ -38,7 +38,7 @@ $ bazel mobile-install //app/src:app_binary --start_app
 ```
 
 Incremental builds can be sped up by executing the second command with a replaced target (the target that has been modified)
-and an additional `--icremental` flag.
+and an additional `--incremental` flag.
 
 ## Testing
 
