@@ -1,5 +1,21 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+## BEGIN build_bazel_rules_android ##
+
+RULES_ANDROID_VERSION = "0.1.1"
+RULES_ANDROID_SHA = "cd06d15dd8bb59926e4d65f9003bfc20f9da4b2519985c27e190cddc8b7a7806"
+
+http_archive(
+    name = "build_bazel_rules_android",
+    sha256 = RULES_ANDROID_SHA,
+    strip_prefix = "rules_android-%s" % RULES_ANDROID_VERSION,
+    type = "zip",
+    urls = ["https://github.com/bazelbuild/rules_android/archive/v%s.zip" % RULES_ANDROID_VERSION],
+)
+
+load("@build_bazel_rules_android//android:rules.bzl", "android_sdk_repository")
+load("@build_bazel_rules_android//android:rules.bzl", "android_ndk_repository")
+
 android_sdk_repository(
     name = "androidsdk",
     api_level = 30,
@@ -8,8 +24,10 @@ android_sdk_repository(
 
 android_ndk_repository(
     name = "androidndk",
-    api_level = 28,
+    api_level = 30,
 )
+
+## END build_bazel_rules_android ##
 
 ## BEGIN io_bazel_rules_kotlin ##
 
@@ -76,6 +94,7 @@ maven_install(
         "junit:junit:4.12",
         "org.robolectric:robolectric:4.4",
     ],
+    fetch_sources = True,
     repositories = [
         "https://jcenter.bintray.com",
         "https://maven.google.com",

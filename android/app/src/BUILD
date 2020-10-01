@@ -1,3 +1,4 @@
+load("@build_bazel_rules_android//android:rules.bzl", "android_library")
 load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kt_android_library")
 load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kt_jvm_test")
 

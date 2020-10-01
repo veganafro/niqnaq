@@ -1,4 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">mono</string>
-    <string name="welcome_message">Hello world! It\'s Jeremy.</string>
+    <string name="mono__app_welcome_message">Hello world! It\'s Jeremy.</string>
 </resources>
