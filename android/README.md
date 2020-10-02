@@ -40,14 +40,18 @@ android
 Each feature should be a new module. Each module should follow the structure outlined above.
 
 * src
+   
    `src` contains the modules `BUILD` file with instructions on how to build the module and run its tests.
 * androidTest
+   
    `androidTest` contains tests that need the Android library and/or Robolectric to run, including `Activity`
    and `Fragment` tests that need to launch either component. Bazel doesn't currently support kt_android_local_test. So,
    the recommended best practice is to wrap a `kt_android_library` in an `android_local_test`.
 * main
+   
    `main` contains the module's source code.
 * test
+   
    `test` contains unit tests that can be run without the Android library and/or Robolectric, including `ViewModel`
    tests that focus on business logic.
  
