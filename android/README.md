@@ -2,9 +2,59 @@
 
 Resources related to the Mono Android app can be found here.
 
+## Structure
+
+```
+android
+├── app
+│   ├── proguard-rules.pro
+│   ├── .gitignore
+│   └── src
+│       ├── BUILD
+│       ├── androidTest
+│       │   ├── AndroidManifest.xml
+│       │   └── java
+│       │       └── com.veganafro.app
+│       │           ├── BUILD
+│       │           └── ExampleInstrumentedTest.kt
+│       ├── test
+│       │   └── java
+│       │       └── com.veganafro.app
+│       │           └── ExampleUnitTest.kt
+│       └── main
+│           ├── AndroidManifest.xml
+│           ├── java
+│           │   └── com.veganafro.app
+│           │       └── MainActivity.kt
+│           └── res
+│               ├── layout
+│               │   └── activity_main.xml
+│               └── values
+│                   ├── colors.xml
+│                   ├── strings.xml
+│                   └── styles.xml 
+├── .gitignore
+└── WORKSPACE
+```
+
+Each feature should be a new module. Each module should follow the structure outlined above.
+
+* src
+   `src` contains the modules `BUILD` file with instructions on how to build the module and run its tests.
+* androidTest
+   `androidTest` contains tests that need the Android library and/or Robolectric to run, including `Activity`
+   and `Fragment` tests that need to launch either component. Bazel doesn't currently support kt_android_local_test. So,
+   the recommended best practice is to wrap a `kt_android_library` in an `android_local_test`.
+* main
+   `main` contains the module's source code.
+* test
+   `test` contains unit tests that can be run without the Android library and/or Robolectric, including `ViewModel`
+   tests that focus on business logic.
+ 
+
 ## Getting started
 
-It's assumed that the Android environment (`$ANDROID_HOME` and `ANDROID_NDK_HOME`) have been correctly configured.
+It's assumed that the Android environment (`$ANDROID_HOME` and `$ANDROID_NDK_HOME`) have been correctly configured.
 
 This Android project is built using the [`bazel`](https://github.com/bazelbuild/bazel) build system. Install it with the following command:
 
@@ -22,7 +72,7 @@ If you see the current directory path printed, everything is working correctly.
 
 Now, follow these steps to correctly configure IntelliJ:
 
-   1. Click on the IntelliJ app
+   1. Open the IntelliJ app
    2. Select `Configure` at the bottom right of the landing page
    3. Select `Plugins` from the dropdown
    4. Install the `Bazel` plugin

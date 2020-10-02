@@ -8,7 +8,7 @@
 
     <uses-sdk
         android:minSdkVersion="20"
-        android:targetSdkVersion="29"
+        android:targetSdkVersion="30"
     />
 
     <application
