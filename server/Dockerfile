@@ -1,5 +1,5 @@
 # Start from the latest bazel image
-FROM l.gcr.io/google/bazel:latest
+FROM l.gcr.io/google/bazel:3.5.0
 
 LABEL maintainer="Jeremy Muhia <jmuhia80@gmail.com>"
 
