@@ -9,8 +9,8 @@ android
 ├── app
 │   ├── proguard-rules.pro
 │   ├── .gitignore
+│   ├── BUILD
 │   └── src
-│       ├── BUILD
 │       ├── androidTest
 │       │   ├── AndroidManifest.xml
 │       │   └── java
@@ -37,11 +37,9 @@ android
 └── WORKSPACE
 ```
 
-Each feature should be a new module. Each module should follow the structure outlined above.
+Each feature should be a new module defined as a top level directory with a `BUILD` file. Each module should follow the
+structure outlined above.
 
-* src
-   
-   `src` contains the modules `BUILD` file with instructions on how to build the module and run its tests.
 * androidTest
    
    `androidTest` contains tests that need the Android library and/or Robolectric to run, including `Activity`
@@ -58,17 +56,54 @@ Each feature should be a new module. Each module should follow the structure out
 
 ## Getting started
 
-It's assumed that the Android environment (`$ANDROID_HOME` and `$ANDROID_NDK_HOME`) have been correctly configured.
+### Setting up the dev environment
 
-This Android project is built using the [`bazel`](https://github.com/bazelbuild/bazel) build system. Install it with the following command:
+Start by installing [`brew`](https://brew.sh/)
+
+Next, run the following commands that install the Bazel build tool and Java 8:
 
 ```
 $ brew install bazel
+$ brew tap adoptopenjdk/openjdk
+$ brew install --cask adoptopenjdk8
+$ brew tap homebrew/core
 ```
+
+Once those prerequisites have been installed, add the following lines to `.bash_profile`:
+
+```
+export JAVA_HOME=$(/usr/libexec/java_home -v1.8)
+source $(brew --prefix)/etc/bash_completion.d
+```
+
+Create a directory `~/android-sdk` and add the following lines to `.bash_profile`:
+
+```
+export ANDROID_HOME=~/android-sdk
+export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/21.3.6528147
+export PATH=$JAVA_HOME/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools/bin:$PATH
+```
+
+Now, download the Android SDK command line tools from [this](https://developer.android.com/studio) link. Extract those
+tools from the zip file and navigate to `cmdline-tools/bin/`.
+
+Run the following commands to install the required Android development tools:
+
+```
+$ ./sdkmanager --install "platform-tools" "platforms;android-30" --sdk_root=~/android-sdk
+$ ./sdkmanager --install "ndk;21.3.6528147" --sdk_root=~/android-sdk
+$ ./sdkmanager --install "emulator" "patcher;v4" "sources;android-30" "build-tools;30.0.3" --sdk_root=~/android-sdk
+```
+
+Make sure that the tools were properly installed by running `sdkmanager --list`. Also verify that there were no redundant
+installations.
+
+### Running the app
 
 After installing `bazel`, confirm that everything is working by navigating to the `android` directory and executing:
 
 ```
+$ bazel sync
 $ bazel info workspace
 ```
 
