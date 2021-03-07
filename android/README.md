@@ -122,8 +122,8 @@ Now, follow these steps to correctly configure IntelliJ:
 Once that step is complete, it should be easy enough to build and install the app to a connected device or emulator in two steps:
 
 ```
-$ bazel build //app/src:app_binary
-$ bazel mobile-install //app/src:app_binary --start_app
+$ bazel build //app:app_binary
+$ bazel mobile-install //app:app_binary --start_app
 ```
 
 Incremental builds can be sped up by executing the second command with a replaced target (the target that has been modified)
