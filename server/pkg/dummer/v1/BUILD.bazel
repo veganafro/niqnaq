@@ -3,11 +3,11 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 load("@io_bazel_rules_go//proto:def.bzl", "go_proto_library")
 
 proto_library(
-    name = "v1_proto",
-    srcs = ["dummer.proto"],
+    name = "dummer_service_v1_proto",
+    srcs = ["dummer_service.proto"],
     visibility = ["//visibility:public"],
     deps = [
-        "//pkg/dummy/v1:v1_proto",
+        "//pkg/dummy/v1:dummy_v1_proto",
         "@go_googleapis//google/api:annotations_proto",
     ],
 )
@@ -20,11 +20,11 @@ go_proto_library(
     ],
     importpath = "github.com/veganafro/mono/pkg/dummer/v1",
     protos = [
-        ":v1_proto",
+        ":dummer_service_v1_proto",
     ],
     visibility = ["//visibility:public"],
     deps = [
-         "//pkg/dummy/v1:dummy",
+        "//pkg/dummy/v1:dummy",
         "@go_googleapis//google/api:annotations_go_proto",
     ],
 )

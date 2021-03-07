@@ -4,15 +4,6 @@ package dummy.v1;
 
 option go_package="github.com/veganafro/mono/pkg/dummy/v1";
 
-import "google/api/annotations.proto";
-import "google/protobuf/empty.proto";
-
-service DummyService {
-    rpc GetHello(google.protobuf.Empty) returns (GetHelloResponse) {
-        option(google.api.http) = { get: "/hello" };
-    }
-}
-
 message GetHelloRequest {
     string msg = 1;
 }

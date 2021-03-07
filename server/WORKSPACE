@@ -59,7 +59,7 @@ http_archive(
     sha256 = BAZEL_GAZELLE_SHA,
 )
 
-load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
 
 gazelle_dependencies()
 
@@ -84,8 +84,6 @@ protobuf_deps()
 ## End com_google_protobuf ##
 
 ## Begin gRPC dependecies ##
-
-load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
 
 go_repository(
     name = "org_golang_google_grpc",

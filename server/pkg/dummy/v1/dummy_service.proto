@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package dummy.v1;
+
+option go_package="github.com/veganafro/mono/pkg/dummy/v1";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "pkg/dummy/v1/dummy.proto";
+
+service DummyService {
+    rpc GetHello(google.protobuf.Empty) returns (dummy.v1.GetHelloResponse) {
+        option(google.api.http) = { get: "/hello" };
+    }
+}
