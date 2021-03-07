@@ -11,4 +11,3 @@ message GetHelloRequest {
 message GetHelloResponse {
     string rsp = 1;
 }
-
