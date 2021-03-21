@@ -2,16 +2,16 @@ package main
 
 import (
 	"context"
-	"net/http"
 	"log"
 	"net"
+	"net/http"
 	"os"
 	"strings"
 
-	dummy "github.com/veganafro/mono/pkg/dummy/v1"
 	"github.com/golang/protobuf/ptypes/empty"
-	pb "github.com/veganafro/mono/pkg/dummer/v1"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	pb "github.com/veganafro/mono/pkg/dummer/v1"
+	dummy "github.com/veganafro/mono/pkg/dummy/v1"
 
 	"google.golang.org/grpc"
 
@@ -46,7 +46,7 @@ func (server *dummerServer) GetWorld(ctx context.Context, request *dummy.GetHell
 		log.Println("Failed to request dummy.GetHello | ", error)
 		return nil, error
 	}
-	
+
 	return response, nil
 }
 
@@ -59,11 +59,11 @@ func main() {
 	grpcServer := grpc.NewServer()
 	pb.RegisterDummerServiceServer(grpcServer, &dummerServer{})
 
-	dialOpts := []grpc.DialOption{ grpc.WithInsecure() }
+	dialOpts := []grpc.DialOption{grpc.WithInsecure()}
 
 	ctx := context.Background()
 	gatewayMux := runtime.NewServeMux()
-	error := pb.RegisterDummerServiceHandlerFromEndpoint(ctx, gatewayMux, host + ":" + PORT, dialOpts)
+	error := pb.RegisterDummerServiceHandlerFromEndpoint(ctx, gatewayMux, host+":"+PORT, dialOpts)
 	if error != nil {
 		log.Fatal("Failed to register service handler from endpoint | ", error)
 	}
@@ -81,11 +81,11 @@ func main() {
 
 	http2Server := &http2.Server{}
 	http1Server := &http.Server{
-		Addr: host + ":" + PORT,
+		Addr:    host + ":" + PORT,
 		Handler: h2c.NewHandler(httpHandler, http2Server),
 	}
 
-	conn, error := net.Listen("tcp", host + ":" + PORT)
+	conn, error := net.Listen("tcp", host+":"+PORT)
 	if error != nil {
 		log.Fatal("Failed to start tcp connection | ", error)
 	}
@@ -95,4 +95,3 @@ func main() {
 		log.Fatal("Failed to start http1 server | ", error)
 	}
 }
-

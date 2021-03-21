@@ -2,15 +2,15 @@ package main
 
 import (
 	"context"
-	"net/http"
 	"log"
 	"net"
+	"net/http"
 	"os"
 	"strings"
 
 	"github.com/golang/protobuf/ptypes/empty"
-	pb "github.com/veganafro/mono/pkg/dummy/v1"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	pb "github.com/veganafro/mono/pkg/dummy/v1"
 
 	"google.golang.org/grpc"
 
@@ -27,7 +27,7 @@ type dummyServer struct {
 }
 
 func (server *dummyServer) GetHello(ctx context.Context, request *empty.Empty) (*pb.GetHelloResponse, error) {
-	return &pb.GetHelloResponse{ Rsp: "Hello world" }, nil
+	return &pb.GetHelloResponse{Rsp: "Hello world"}, nil
 }
 
 func main() {
@@ -39,11 +39,11 @@ func main() {
 	grpcServer := grpc.NewServer()
 	pb.RegisterDummyServiceServer(grpcServer, &dummyServer{})
 
-	dialOpts := []grpc.DialOption{ grpc.WithInsecure() }
+	dialOpts := []grpc.DialOption{grpc.WithInsecure()}
 
 	ctx := context.Background()
 	gatewayMux := runtime.NewServeMux()
-	error := pb.RegisterDummyServiceHandlerFromEndpoint(ctx, gatewayMux, host + ":" + PORT, dialOpts)
+	error := pb.RegisterDummyServiceHandlerFromEndpoint(ctx, gatewayMux, host+":"+PORT, dialOpts)
 	if error != nil {
 		log.Fatal("Failed to register service handler from endpoint | ", error)
 	}
@@ -61,11 +61,11 @@ func main() {
 
 	http2Server := &http2.Server{}
 	http1Server := &http.Server{
-		Addr: host + ":" + PORT,
+		Addr:    host + ":" + PORT,
 		Handler: h2c.NewHandler(httpHandler, http2Server),
 	}
 
-	conn, error := net.Listen("tcp", host + ":" + PORT)
+	conn, error := net.Listen("tcp", host+":"+PORT)
 	if error != nil {
 		log.Fatal("Failed to start tcp connection | ", error)
 	}
@@ -75,4 +75,3 @@ func main() {
 		log.Fatal("Failed to start http server | ", error)
 	}
 }
-
