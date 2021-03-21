@@ -11,12 +11,12 @@ RULES_PROTO_TAG = "97d8af4dc474595af3900dd85cb3a29ad28cc313"
 
 http_archive(
     name = "rules_proto",
+    sha256 = RULES_PROTO_SHA,
+    strip_prefix = "rules_proto-%s" % RULES_PROTO_TAG,
     urls = [
         "https://mirror.bazel.build/github.com/bazelbuild/rules_proto/archive/%s.tar.gz" % RULES_PROTO_TAG,
         "https://github.com/bazelbuild/rules_proto/archive/%s.tar.gz" % RULES_PROTO_TAG,
     ],
-    strip_prefix = "rules_proto-%s" % RULES_PROTO_TAG,
-    sha256 = RULES_PROTO_SHA,
 )
 
 load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
@@ -29,14 +29,19 @@ rules_proto_toolchains()
 ## Begin io_bazel_rules_go ##
 
 RULES_GO_SHA = "7f1aa43d986df189f7cf30e81dd2dc9d8ed7c74e356341a17267f6d7e5748382"
+RULES_GO_VERSION = "0.24.1"
 
 http_archive(
     name = "io_bazel_rules_go",
-    urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.24.1/rules_go-v0.24.1.tar.gz",
-        "https://github.com/bazelbuild/rules_go/releases/download/v0.24.1/rules_go-v0.24.1.tar.gz",
-    ],
     sha256 = RULES_GO_SHA,
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v{}/rules_go-v{}.tar.gz".format(
+            RULES_GO_VERSION, RULES_GO_VERSION
+        ),
+        "https://github.com/bazelbuild/rules_go/releases/download/v{}/rules_go-v{}.tar.gz".format(
+            RULES_GO_VERSION, RULES_GO_VERSION
+        ),
+    ],
 )
 
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
@@ -49,14 +54,19 @@ go_register_toolchains()
 ## Begin bazel_gazelle ##
 
 BAZEL_GAZELLE_SHA = "d4113967ab451dd4d2d767c3ca5f927fec4b30f3b2c6f8135a2033b9c05a5687"
+BAZEL_GAZELLE_VERSION = "0.22.0"
 
 http_archive(
     name = "bazel_gazelle",
-    urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.22.0/bazel-gazelle-v0.22.0.tar.gz",
-        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.22.0/bazel-gazelle-v0.22.0.tar.gz",
-    ],
     sha256 = BAZEL_GAZELLE_SHA,
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v{}/bazel-gazelle-v{}.tar.gz".format(
+            BAZEL_GAZELLE_VERSION, BAZEL_GAZELLE_VERSION
+        ),
+        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v{}/bazel-gazelle-v{}.tar.gz".format(
+            BAZEL_GAZELLE_VERSION, BAZEL_GAZELLE_VERSION
+        ),
+    ],
 )
 
 load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
@@ -72,9 +82,11 @@ COM_GOOGLE_PROTOBUF_SHA = "9748c0d90e54ea09e5e75fb7fac16edce15d2028d4356f32211cf
 
 http_archive(
     name = "com_google_protobuf",
-    urls = ["https://github.com/protocolbuffers/protobuf/archive/v%s.zip" % COM_GOOGLE_PROTOBUF_VERSION],
-    strip_prefix = "protobuf-%s" % COM_GOOGLE_PROTOBUF_VERSION,
     sha256 = COM_GOOGLE_PROTOBUF_SHA,
+    strip_prefix = "protobuf-%s" % COM_GOOGLE_PROTOBUF_VERSION,
+    urls = [
+        "https://github.com/protocolbuffers/protobuf/archive/v%s.zip" % COM_GOOGLE_PROTOBUF_VERSION
+    ],
 )
 
 load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
@@ -137,3 +149,39 @@ go_repository(
 )
 
 ## End grpc-gateway dependencies ##
+
+## Begin rules_docker ##
+
+RULES_DOCKER_SHA = "95d39fd84ff4474babaf190450ee034d958202043e366b9fc38f438c9e6c3334"
+RULES_DOCKER_VERSION = "0.16.0"
+
+http_archive(
+    name = "io_bazel_rules_docker",
+    sha256 = RULES_DOCKER_SHA,
+    strip_prefix = "rules_docker-%s" % RULES_DOCKER_VERSION,
+    urls = [
+        "https://github.com/bazelbuild/rules_docker/releases/download/v{}/rules_docker-v{}.tar.gz".format(
+            RULES_DOCKER_VERSION, RULES_DOCKER_VERSION
+        )
+    ],
+)
+
+load("@io_bazel_rules_docker//repositories:repositories.bzl", container_repositories = "repositories")
+
+container_repositories()
+
+load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
+
+container_deps()
+
+load("@io_bazel_rules_docker//container:container.bzl", "container_pull")
+
+container_pull(
+    name = "bazel_3_5_0",
+    # 'tag' is also supported, but digest is encouraged for reproducibility.
+    digest = "sha256:ace9881e6e9c5d48b5fd637321361aeffe54000265894a65f7d818dc1065bd80",
+    registry = "l.gcr.io",
+    repository = "google/bazel",
+)
+
+## End rules_docker ##
