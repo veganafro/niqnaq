@@ -5,7 +5,7 @@ load("@rules_pkg//:pkg.bzl", "pkg_tar")
 go_library(
     name = "dummer_lib",
     srcs = ["main.go"],
-    importpath = "github.com/veganafro/mono/cmd/dummer",
+    importpath = "github.com/veganafro/mono/server/cmd/dummer",
     visibility = ["//visibility:private"],
     deps = [
         "//pkg/dummer/v1:dummer",

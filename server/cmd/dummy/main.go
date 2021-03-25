@@ -10,7 +10,7 @@ import (
 
 	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
-	pb "github.com/veganafro/mono/pkg/dummy/v1"
+	pb "github.com/veganafro/mono/server/pkg/dummy/v1"
 
 	"google.golang.org/grpc"
 

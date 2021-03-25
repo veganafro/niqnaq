@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package dummy.v1;
 
-option go_package="github.com/veganafro/mono/pkg/dummy/v1";
+option go_package="github.com/veganafro/mono/server/pkg/dummy/v1";
 
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
