@@ -1,7 +1,7 @@
 load("@bazel_gazelle//:def.bzl", "gazelle")
 load("@rules_pkg//:pkg.bzl", "pkg_tar")
 
-# gazelle:prefix github.com/veganafro/mono
+# gazelle:prefix github.com/veganafro/mono/server
 gazelle(name = "gazelle")
 
 pkg_tar(
