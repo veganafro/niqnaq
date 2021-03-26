@@ -1,4 +1,4 @@
-module github.com/veganafro/mono
+module github.com/veganafro/mono/server
 
 go 1.14
 
