@@ -28,8 +28,8 @@ rules_proto_toolchains()
 
 ## Begin io_bazel_rules_go ##
 
-RULES_GO_SHA = "7f1aa43d986df189f7cf30e81dd2dc9d8ed7c74e356341a17267f6d7e5748382"
-RULES_GO_VERSION = "0.24.1"
+RULES_GO_SHA = "7904dbecbaffd068651916dce77ff3437679f9d20e1a7956bff43826e7645fcc"
+RULES_GO_VERSION = "0.25.1"
 
 http_archive(
     name = "io_bazel_rules_go",
@@ -47,7 +47,7 @@ http_archive(
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 
 go_rules_dependencies()
-go_register_toolchains()
+go_register_toolchains(version = "1.14")
 
 ## End io_bazel_rules_go ##
 
@@ -140,6 +140,16 @@ go_repository(
     importpath = "github.com/grpc-ecosystem/grpc-gateway",
     sum = "%s" % GRPC_GATEWAY_SUM,
     version = "%s" % GRPC_GATEWAY_VERSION,
+)
+
+GRPC_GATEWAY_V2_SUM = "h1:IvO4FbbQL6n3v3M1rQNobZ61SGL0gJLdvKA5KETM7Xs="
+GRPC_GATEWAY_V2_VERSION = "v2.3.0"
+
+go_repository(
+    name = "com_github_grpc_ecosystem_grpc_gateway_v2",
+    importpath = "github.com/grpc-ecosystem/grpc-gateway/v2",
+    sum = "%s" % GRPC_GATEWAY_V2_SUM,
+    version = "%s" % GRPC_GATEWAY_V2_VERSION,
 )
 
 GLOG_COMMIT = "23def4e6c14b4da8ac2ed8007337bc5eb5007998"
