@@ -95,42 +95,7 @@ protobuf_deps()
 
 ## End com_google_protobuf ##
 
-## Begin gRPC dependecies ##
-
-GRPC_SUM = "h1:SfXqXS5hkufcdZ/mHtYCh53P2b+92WQq/DZcKLgsFRs="
-GRPC_VERSION = "v1.31.1"
-
-go_repository(
-    name = "org_golang_google_grpc",
-    build_file_proto_mode = "disable",
-    importpath = "google.golang.org/grpc",
-    sum = "%s" % GRPC_SUM,
-    version = "%s" % GRPC_VERSION,
-)
-
-NET_SUM = "h1:MXfv8rhZWmFeqX3GNZRsd6vOLoaCHjYEX3qkRo3YBUA="
-NET_VERSION = "v0.0.0-20200904194848-62affa334b73"
-
-go_repository(
-    name = "org_golang_x_net",
-    importpath = "golang.org/x/net",
-    sum = "%s" % NET_SUM,
-    version = "%s" % NET_VERSION,
-)
-
-TEXT_SUM = "h1:cokOdA+Jmi5PJGXLlLllQSgYigAEfHXJAERHVMaCc2k="
-TEXT_VERSION = "v0.3.3"
-
-go_repository(
-    name = "org_golang_x_text",
-    importpath = "golang.org/x/text",
-    sum = "%s" % TEXT_SUM,
-    version = "%s" % TEXT_VERSION,
-)
-
-## End gRPC dependencies ##
-
-## Begin grpc-gateway dependencies ##
+## Begin grpc-gateway ##
 
 GRPC_GATEWAY_SUM = "h1:Nk5kuHrnWUTf/0GL1a/vchH/om9Ap2/HnVna+jYZgTY="
 GRPC_GATEWAY_VERSION = "v1.14.7"
@@ -152,36 +117,16 @@ go_repository(
     version = "%s" % GRPC_GATEWAY_V2_VERSION,
 )
 
-GLOG_COMMIT = "23def4e6c14b4da8ac2ed8007337bc5eb5007998"
+load("//:repositories.bzl", "go_repository_dependencies")
 
-go_repository(
-    name = "com_github_golang_glog",
-    commit = "%s" % GLOG_COMMIT,
-    importpath = "github.com/golang/glog",
-)
+go_repository_dependencies()
 
-YAML_COMMIT = "25d852aebe32c875e9c044af3eef9c7dc6bc777f"
-
-go_repository(
-    name = "com_github_ghodss_yaml",
-    commit = "%s" % YAML_COMMIT,
-    importpath = "github.com/ghodss/yaml",
-)
-
-YAML_V2_COMMIT = "0b1645d91e851e735d3e23330303ce81f70adbe3"
-
-go_repository(
-    name = "in_gopkg_yaml_v2",
-    commit = "%s" % YAML_V2_COMMIT,
-    importpath = "gopkg.in/yaml.v2",
-)
-
-## End grpc-gateway dependencies ##
+## End grpc-gateway ##
 
 ## Begin rules_docker ##
 
-RULES_DOCKER_SHA = "95d39fd84ff4474babaf190450ee034d958202043e366b9fc38f438c9e6c3334"
-RULES_DOCKER_VERSION = "0.16.0"
+RULES_DOCKER_SHA = "59d5b42ac315e7eadffa944e86e90c2990110a1c8075f1cd145f487e999d22b3"
+RULES_DOCKER_VERSION = "0.17.0"
 
 http_archive(
     name = "io_bazel_rules_docker",
