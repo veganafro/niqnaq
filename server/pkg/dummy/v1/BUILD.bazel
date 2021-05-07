@@ -26,7 +26,7 @@ go_proto_library(
     name = "v1_go_proto",
     compilers = [
         "@io_bazel_rules_go//proto:go_grpc",
-        "@com_github_grpc_ecosystem_grpc_gateway//protoc-gen-grpc-gateway:go_gen_grpc_gateway",
+        "@com_github_grpc_ecosystem_grpc_gateway_v2//protoc-gen-grpc-gateway:go_gen_grpc_gateway",
     ],
     importpath = "github.com/veganafro/mono/server/pkg/dummy/v1",
     protos = [
@@ -34,7 +34,9 @@ go_proto_library(
         ":dummy_service_v1_proto",
     ],
     visibility = ["//visibility:public"],
-    deps = ["@go_googleapis//google/api:annotations_go_proto"],
+    deps = [
+        "@go_googleapis//google/api:annotations_go_proto",
+    ],
 )
 
 go_library(
