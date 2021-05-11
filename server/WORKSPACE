@@ -107,19 +107,21 @@ go_repository(
     version = "%s" % GRPC_GATEWAY_VERSION,
 )
 
-GRPC_GATEWAY_V2_SUM = "h1:IvO4FbbQL6n3v3M1rQNobZ61SGL0gJLdvKA5KETM7Xs="
-GRPC_GATEWAY_V2_VERSION = "v2.3.0"
+GRPC_GATEWAY_V2_COMMIT = "74ecd1deffacf97bcbee90e81c631ef6a3c275f2"
+GRPC_GATEWAY_V2_SHA = "6c98b5b72512a5ff232c76503a74243469cb2772d486fe38629c13878ce7cf8a"
 
-go_repository(
+http_archive(
     name = "com_github_grpc_ecosystem_grpc_gateway_v2",
-    importpath = "github.com/grpc-ecosystem/grpc-gateway/v2",
-    sum = "%s" % GRPC_GATEWAY_V2_SUM,
-    version = "%s" % GRPC_GATEWAY_V2_VERSION,
+    sha256 = GRPC_GATEWAY_V2_SHA,
+    strip_prefix = "grpc-gateway-%s" % GRPC_GATEWAY_V2_COMMIT,
+    urls = [
+        "https://github.com/grpc-ecosystem/grpc-gateway/archive/%s.tar.gz" % GRPC_GATEWAY_V2_COMMIT
+    ],
 )
 
-load("//:repositories.bzl", "go_repository_dependencies")
+load("@com_github_grpc_ecosystem_grpc_gateway_v2//:repositories.bzl", "go_repositories")
 
-go_repository_dependencies()
+go_repositories()
 
 ## End grpc-gateway ##
 
