@@ -1,13 +1,35 @@
+# SEE: https://github.com/bazelbuild/rules_go/issues/2603
+# gazelle:repository go_repository name=org_golang_x_sys importpath=golang.org/x/sys
+# gazelle:repository go_repository name=com_github_google_go_containerregistry importpath=github.com/vdemeester/k8s-pkg-credentialprovider
+
 workspace(
     name = "veganafro_mono_server",
 )
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-## Begin rules_proto ##
+# SEE: https://github.com/bazelbuild/rules_python/issues/437
+## Begin rules_python - 05/13 ##
 
-RULES_PROTO_SHA = "602e7161d9195e50246177e7c55b2f39950a9cf7366f74ed5f22fd45750cd208"
-RULES_PROTO_TAG = "97d8af4dc474595af3900dd85cb3a29ad28cc313"
+RULES_PYTHON_SHA = "b6d46438523a3ec0f3cead544190ee13223a52f6a6765a29eae7b7cc24cc83a0"
+RULES_PYTHON_VERSION = "0.1.0"
+
+http_archive(
+    name = "rules_python",
+    sha256 = RULES_PYTHON_SHA,
+    urls = [
+        "https://github.com/bazelbuild/rules_python/releases/download/{}/rules_python-{}.tar.gz".format(
+            RULES_PYTHON_VERSION, RULES_PYTHON_VERSION
+        )
+    ],
+)
+
+## End rules_python - 05/13 ##
+
+## Begin rules_proto - 05/13 ##
+
+RULES_PROTO_SHA = "9fc210a34f0f9e7cc31598d109b5d069ef44911a82f507d5a88716db171615a8"
+RULES_PROTO_TAG = "f7a30f6f80006b591fa7c437fe5a951eb10bcbcf"
 
 http_archive(
     name = "rules_proto",
@@ -26,10 +48,10 @@ rules_proto_toolchains()
 
 ## End rules_proto ##
 
-## Begin io_bazel_rules_go ##
+## Begin io_bazel_rules_go - 05/13 ##
 
-RULES_GO_SHA = "7904dbecbaffd068651916dce77ff3437679f9d20e1a7956bff43826e7645fcc"
-RULES_GO_VERSION = "0.25.1"
+RULES_GO_SHA = "69de5c704a05ff37862f7e0f5534d4f479418afc21806c887db544a316f3cb6b"
+RULES_GO_VERSION = "0.27.0"
 
 http_archive(
     name = "io_bazel_rules_go",
@@ -47,14 +69,14 @@ http_archive(
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 
 go_rules_dependencies()
-go_register_toolchains(version = "1.14")
+go_register_toolchains(version = "1.16")
 
 ## End io_bazel_rules_go ##
 
-## Begin bazel_gazelle ##
+## Begin bazel_gazelle - 05/13 ##
 
-BAZEL_GAZELLE_SHA = "d4113967ab451dd4d2d767c3ca5f927fec4b30f3b2c6f8135a2033b9c05a5687"
-BAZEL_GAZELLE_VERSION = "0.22.0"
+BAZEL_GAZELLE_SHA = "62ca106be173579c0a167deb23358fdfe71ffa1e4cfdddf5582af26520f1c66f"
+BAZEL_GAZELLE_VERSION = "0.23.0"
 
 http_archive(
     name = "bazel_gazelle",
@@ -69,16 +91,21 @@ http_archive(
     ],
 )
 
-load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
 
 gazelle_dependencies()
 
+load("//:repositories.bzl", "go_grpc_deps", "go_grpc_gateway_deps")
+
+go_grpc_deps()
+go_grpc_gateway_deps()
+
 ## End bazel_gazelle ##
 
-## Begin com_google_protobuf ##
+## Begin com_google_protobuf - 05/13 ##
 
-COM_GOOGLE_PROTOBUF_VERSION = "3.13"
-COM_GOOGLE_PROTOBUF_SHA = "9748c0d90e54ea09e5e75fb7fac16edce15d2028d4356f32211cfa3c0e956564"
+COM_GOOGLE_PROTOBUF_SHA = "eaba1dd133ac5167e8b08bc3268b2d33c6e9f2dcb14ec0f97f3d3eed9b395863"
+COM_GOOGLE_PROTOBUF_VERSION = "3.17"
 
 http_archive(
     name = "com_google_protobuf",
@@ -95,17 +122,7 @@ protobuf_deps()
 
 ## End com_google_protobuf ##
 
-## Begin grpc-gateway ##
-
-GRPC_GATEWAY_SUM = "h1:Nk5kuHrnWUTf/0GL1a/vchH/om9Ap2/HnVna+jYZgTY="
-GRPC_GATEWAY_VERSION = "v1.14.7"
-
-go_repository(
-    name = "com_github_grpc_ecosystem_grpc_gateway",
-    importpath = "github.com/grpc-ecosystem/grpc-gateway",
-    sum = "%s" % GRPC_GATEWAY_SUM,
-    version = "%s" % GRPC_GATEWAY_VERSION,
-)
+## Begin grpc-gateway - 05/13 ##
 
 GRPC_GATEWAY_V2_COMMIT = "74ecd1deffacf97bcbee90e81c631ef6a3c275f2"
 GRPC_GATEWAY_V2_SHA = "6c98b5b72512a5ff232c76503a74243469cb2772d486fe38629c13878ce7cf8a"
@@ -118,10 +135,6 @@ http_archive(
         "https://github.com/grpc-ecosystem/grpc-gateway/archive/%s.tar.gz" % GRPC_GATEWAY_V2_COMMIT
     ],
 )
-
-load("@com_github_grpc_ecosystem_grpc_gateway_v2//:repositories.bzl", "go_repositories")
-
-go_repositories()
 
 ## End grpc-gateway ##
 
