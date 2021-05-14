@@ -50,6 +50,14 @@ def go_grpc_gateway_deps():
     """
     ## Begin grpc-gateway dependencies - 05/13 ##
 
+    GLOG_COMMIT = "424d2337a5299a465c8a8228fc3ba4b1c28337a2"
+
+    go_repository(
+        name = "com_github_golang_glog",
+        commit = "%s" % GLOG_COMMIT,
+        importpath = "github.com/golang/glog",
+    )
+
     YAML_SUM = "h1:wQHKEahhL6wmXdzwWG11gIVCkOv05bNOh+Rxn0yngAk="
     YAML_VERSION = "v1.0.0"
 
