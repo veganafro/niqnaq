@@ -78,4 +78,24 @@ def go_grpc_gateway_deps():
         version = "%s" % YAML_V2_VERSION,
     )
 
+    ORG_PROTOBUF_SUM = "h1:hFxJC2f0epmp1elRCiEGJTKAWbwxZ2nvqZdHl3FQXCY="
+    ORG_PROTOBUF_VERSION = "v1.25.1"
+
+    go_repository(
+        name = "org_golang_google_protobuf",
+        importpath = "google.golang.org/protobuf",
+        sum = "%s" % ORG_PROTOBUF_SUM,
+        version = "%s" % ORG_PROTOBUF_VERSION,
+    )
+
+    COM_PROTOBUF_SUM = "h1:ROPKBNFfQgOUMifHyP+KYbvpjbdoFNs+aK7DXlji0Tw="
+    COM_PROTOBUF_VERSION = "v1.5.2"
+
+    go_repository(
+        name = "com_github_golang_protobuf",
+        importpath = "github.com/golang/protobuf",
+        sum = "%s" % COM_PROTOBUF_SUM,
+        version = "%s" % COM_PROTOBUF_VERSION,
+    )
+
     ## End grpc-gateway dependencies ##
