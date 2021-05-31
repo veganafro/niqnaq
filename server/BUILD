@@ -25,3 +25,14 @@ pkg_tar(
     strip_prefix = "/",
     visibility = ["//visibility:public"],
 )
+
+pkg_tar(
+    name = "repositories_tar",
+    mode = "0755",
+    package_dir = "/",
+    srcs = [
+        "repositories.bzl",
+    ],
+    strip_prefix = "/",
+    visibility = ["//visibility:public"],
+)

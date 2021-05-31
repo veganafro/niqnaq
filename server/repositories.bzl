@@ -22,8 +22,8 @@ def go_grpc_deps():
         version = "%s" % GRPC_VERSION,
     )
 
-    NET_SUM = "h1:m0MpNAwzfU5UDzcl9v0D8zg8gWTRqZa9RBIspLL5mdg="
-    NET_VERSION = "v0v0.0.0-20210119194325-5f4716e94777"
+    NET_SUM = "h1:003p0dJM77cxMSyCPFphvZf/Y5/NXf5fzg6ufd1/Oew="
+    NET_VERSION = "v0.0.0-20210119194325-5f4716e94777"
 
     go_repository(
         name = "org_golang_x_net",
@@ -32,7 +32,7 @@ def go_grpc_deps():
         version = "%s" % NET_VERSION,
     )
 
-    TEXT_SUM = "h1:5Zoc/QRtKVWzQhOtBMvqHzDpF6irO9z98xDceosuGiQ="
+    TEXT_SUM = "h1:i6eZZ+zk0SOf0xgBpEpPD18qWcJda6q1sxt3S0kzyUQ="
     TEXT_VERSION = "v0.3.5"
 
     go_repository(
@@ -68,7 +68,7 @@ def go_grpc_gateway_deps():
         version = "%s" % YAML_VERSION,
     )
 
-    YAML_V2_SUM = "h1:hI93XBmqTisBFMUTm0b8Fm+jr3Dg1NNxqwp+5A1VGuI="
+    YAML_V2_SUM = "h1:clyUAQHOM3G0M3f5vQj7LuJrETvjVot3Z5el9nffUtU="
     YAML_V2_VERSION = "v2.3.0"
 
     go_repository(
