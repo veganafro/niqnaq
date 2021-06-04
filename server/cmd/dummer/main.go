@@ -30,7 +30,7 @@ type dummerServer struct {
 func (server *dummerServer) GetWorld(ctx context.Context, request *dummy.GetHelloRequest) (*dummy.GetHelloResponse, error) {
 	var DummyHost string
 	if DummyHost = os.Getenv("DUMMY_HOST"); DummyHost == "" {
-		DummyHost = "0.0.0.0:3001"
+		DummyHost = "0.0.0.0:8000"
 	}
 
 	conn, error := grpc.Dial(DummyHost, grpc.WithInsecure())
