@@ -1,0 +1,5 @@
+# IDE generated files for Bazel projects
+.ijwb
+
+# Bazel generated output
+bazel-*
