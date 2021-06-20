@@ -8,8 +8,8 @@ go_library(
     importpath = "github.com/veganafro/mono/server/cmd/dummer",
     visibility = ["//visibility:private"],
     deps = [
-        "//pkg/dummer/v1:dummer",
-        "//pkg/dummy/v1:dummy",
+        "//golang/pkg/dummer/v1:dummer",
+        "//golang/pkg/dummy/v1:dummy",
         "@com_github_grpc_ecosystem_grpc_gateway_v2//runtime:go_default_library",
         "@io_bazel_rules_go//proto/wkt:empty_go_proto",
         "@org_golang_google_grpc//:go_default_library",
@@ -38,18 +38,18 @@ pkg_tar(
 container_image(
     name = "dummer_image",
     base = "@bazel_3_5_0//image",
-    entrypoint = ["bazel", "run", "//cmd/dummer:dummer"],
+    entrypoint = ["bazel", "run", "//golang/cmd/dummer:dummer"],
     env = {
         "PORT": "8001",
     },
     repository = "veganafro",
     tars = [
         ":cmd_dummer_tar",
-        "//:build_tar",
-        "//:repositories_tar",
+        "//golang:build_tar",
+        "//golang:repositories_tar",
         "//:workspace_tar",
-        "//pkg/dummy/v1:pkg_dummy_v1_tar",
-        "//pkg/dummer/v1:pkg_dummer_v1_tar",
+        "//golang/pkg/dummy/v1:pkg_dummy_v1_tar",
+        "//golang/pkg/dummer/v1:pkg_dummer_v1_tar",
     ],
 )
 

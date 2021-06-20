@@ -8,7 +8,7 @@ proto_library(
     srcs = ["dummer_service.proto"],
     visibility = ["//visibility:public"],
     deps = [
-        "//pkg/dummy/v1:dummy_v1_proto",
+        "//golang/pkg/dummy/v1:dummy_v1_proto",
         "@go_googleapis//google/api:annotations_proto",
     ],
 )
@@ -25,7 +25,7 @@ go_proto_library(
     ],
     visibility = ["//visibility:public"],
     deps = [
-        "//pkg/dummy/v1:dummy",
+        "//golang/pkg/dummy/v1:dummy",
         "@go_googleapis//google/api:annotations_go_proto",
     ],
 )

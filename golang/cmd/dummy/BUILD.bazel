@@ -8,7 +8,7 @@ go_library(
     importpath = "github.com/veganafro/mono/server/cmd/dummy",
     visibility = ["//visibility:private"],
     deps = [
-        "//pkg/dummy/v1:dummy",
+        "//golang/pkg/dummy/v1:dummy",
         "@com_github_grpc_ecosystem_grpc_gateway_v2//runtime:go_default_library",
         "@io_bazel_rules_go//proto/wkt:empty_go_proto",
         "@org_golang_google_grpc//:go_default_library",
@@ -37,17 +37,17 @@ pkg_tar(
 container_image(
     name = "dummy_image",
     base = "@bazel_3_5_0//image",
-    entrypoint = ["bazel", "run", "//cmd/dummy:dummy"],
+    entrypoint = ["bazel", "run", "//golang/cmd/dummy:dummy"],
     env = {
         "PORT": "8000"
     },
     repository = "veganafro",
     tars = [
         ":cmd_dummy_tar",
-        "//:build_tar",
-        "//:repositories_tar",
+        "//golang:build_tar",
+        "//golang:repositories_tar",
         "//:workspace_tar",
-        "//pkg/dummy/v1:pkg_dummy_v1_tar",
+        "//golang/pkg/dummy/v1:pkg_dummy_v1_tar",
     ],
 )
 
