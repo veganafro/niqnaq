@@ -11,3 +11,13 @@ pkg_tar(
     visibility = ["//visibility:public"],
 )
 
+pkg_tar(
+    name = "build_tar",
+    mode = "0755",
+    package_dir = "/",
+    srcs = [
+        "BUILD",
+    ],
+    strip_prefix = "/",
+    visibility = ["//visibility:public"],
+)

@@ -46,6 +46,7 @@ container_image(
         ":cmd_dummy_tar",
         "//golang:build_tar",
         "//golang:repositories_tar",
+        "//:build_tar",
         "//:workspace_tar",
         "//golang/pkg/dummy/v1:pkg_dummy_v1_tar",
     ],
