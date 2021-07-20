@@ -25,7 +25,7 @@ proto_library(
 )
 
 pkg_tar(
-    name = "pkg_dummy_v1_tar",
+    name = "dummest_v1_tar",
     mode = "0755",
     package_dir = "/",
     srcs = [

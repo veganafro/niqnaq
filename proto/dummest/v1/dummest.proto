@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package dummest.v1;
 
-option go_package="github.com/veganafro/mono/proto/pkg/dummy/v1";
+option go_package="github.com/veganafro/mono/server/pkg/dummest/v1";
 
 message GetDummestRequest {
     string msg = 1;
