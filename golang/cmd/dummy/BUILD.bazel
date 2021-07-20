@@ -44,11 +44,12 @@ container_image(
     repository = "veganafro",
     tars = [
         ":cmd_dummy_tar",
-        "//golang:build_tar",
-        "//golang:repositories_tar",
         "//:build_tar",
         "//:workspace_tar",
+        "//golang:build_tar",
+        "//golang:repositories_tar",
         "//golang/pkg/dummy/v1:pkg_dummy_v1_tar",
+        "//proto/dummy/v1:dummy_v1_tar",
     ],
 )
 

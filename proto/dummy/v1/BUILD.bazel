@@ -1,0 +1,34 @@
+load("@rules_proto//proto:defs.bzl", "proto_library")
+load("@rules_pkg//:pkg.bzl", "pkg_tar")
+
+proto_library(
+    name = "dummy_v1_proto",
+    srcs = ["dummy.proto"],
+    visibility = ["//visibility:public"],
+    deps = [
+    ],
+)
+
+proto_library(
+    name = "dummy_service_v1_proto",
+    srcs = ["dummy_service.proto"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":dummy_v1_proto",
+        "@com_google_protobuf//:empty_proto",
+        "@go_googleapis//google/api:annotations_proto",
+    ],
+)
+
+pkg_tar(
+    name = "dummy_v1_tar",
+    mode = "0755",
+    package_dir = "/",
+    srcs = [
+        "BUILD.bazel",
+        "dummy.proto",
+        "dummy_service.proto",
+    ],
+    strip_prefix = "/",
+    visibility = ["//visibility:public"],
+)
