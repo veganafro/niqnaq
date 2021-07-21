@@ -1,17 +1,6 @@
-load("@rules_proto//proto:defs.bzl", "proto_library")
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 load("@io_bazel_rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_pkg//:pkg.bzl", "pkg_tar")
-
-proto_library(
-    name = "dummer_service_v1_proto",
-    srcs = ["dummer_service.proto"],
-    visibility = ["//visibility:public"],
-    deps = [
-        "//golang/pkg/dummy/v1:dummy_v1_proto",
-        "@go_googleapis//google/api:annotations_proto",
-    ],
-)
 
 go_proto_library(
     name = "v1_go_proto",
@@ -21,7 +10,7 @@ go_proto_library(
     ],
     importpath = "github.com/veganafro/mono/server/pkg/dummer/v1",
     protos = [
-        ":dummer_service_v1_proto",
+        "//proto/dummer/v1:dummer_service_v1_proto",
     ],
     visibility = ["//visibility:public"],
     deps = [
@@ -43,7 +32,6 @@ pkg_tar(
     package_dir = "/",
     srcs = [
         "BUILD.bazel",
-        "dummer_service.proto",
     ],
     strip_prefix = "/",
     visibility = ["//visibility:public"],

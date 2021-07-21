@@ -5,7 +5,7 @@ package dummer.v1;
 option go_package = "github.com/veganafro/mono/server/pkg/dummer/v1";
 
 import "google/api/annotations.proto";
-import "golang/pkg/dummy/v1/dummy.proto";
+import "proto/dummy/v1/dummy.proto";
 
 service DummerService {
     rpc GetWorld(dummy.v1.GetHelloRequest) returns (dummy.v1.GetHelloResponse) {
@@ -15,4 +15,3 @@ service DummerService {
         };
     }
 }
-
